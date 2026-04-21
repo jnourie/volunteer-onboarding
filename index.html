@@ -4,27 +4,32 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LCC Redding Volunteer Registration & Requirements</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://js.churchcenter.com/modal/v1"></script>
   <style>
     :root {
-      --bg:          #0a0a0a;
-      --surface:     #131313;
-      --surface2:    #1a1a1a;
-      --surface3:    #222222;
-      --border:      rgba(255,255,255,0.06);
-      --border-hi:   rgba(83,205,189,0.3);
+      --bg:          #080909;
+      --surface:     #111214;
+      --surface2:    #18191c;
+      --surface3:    #202226;
+      --border:      rgba(255,255,255,0.07);
+      --border-hi:   rgba(83,205,189,0.32);
       --teal:        #53cdbd;
       --teal-dark:   #195b51;
       --teal-mid:    #399589;
-      --teal-glow:   rgba(83,205,189,0.09);
-      --teal-dim:    rgba(83,205,189,0.04);
-      --text:        #ededed;
-      --text2:       rgba(237,237,237,0.5);
-      --text3:       rgba(237,237,237,0.24);
+      --teal-glow:   rgba(83,205,189,0.1);
+      --teal-dim:    rgba(83,205,189,0.05);
+      --text:        #efefef;
+      --text2:       rgba(239,239,239,0.5);
+      --text3:       rgba(239,239,239,0.26);
       --danger:      #c95f5f;
-      --danger-bg:   rgba(201,95,95,0.06);
+      --danger-bg:   rgba(201,95,95,0.07);
       --warn:        #c49a3c;
-      --warn-bg:     rgba(196,154,60,0.06);
+      --warn-bg:     rgba(196,154,60,0.07);
+      --radius:      10px;
+      --radius-lg:   14px;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -32,21 +37,23 @@
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', Helvetica, sans-serif;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       min-height: 100vh;
       -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
       overflow-x: hidden;
     }
 
     /* ── PROGRESS BAR ── */
     #prog-wrap {
       position: fixed; top: 0; left: 0; right: 0;
-      height: 2px; background: rgba(255,255,255,0.04); z-index: 999;
+      height: 3px; background: rgba(255,255,255,0.05); z-index: 999;
     }
     #prog-fill {
       height: 100%;
       background: linear-gradient(90deg, var(--teal-dark), var(--teal));
-      transition: width 0.6s cubic-bezier(.4,0,.2,1);
+      transition: width 0.65s cubic-bezier(.4,0,.2,1);
+      box-shadow: 0 0 10px rgba(83,205,189,0.4);
       width: 0%;
     }
 
@@ -58,26 +65,26 @@
       align-items: center;
       padding: 0 20px 100px;
     }
-    .container { width: 100%; max-width: 640px; }
+    .container { width: 100%; max-width: 600px; }
 
     /* ── HEADER ── */
     .site-header {
-      width: 100%; max-width: 640px;
-      padding: 52px 0 0;
+      width: 100%; max-width: 600px;
+      padding: 44px 0 0;
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin-bottom: 40px;
+      margin-bottom: 36px;
     }
     .logo {
-      height: 64px;
+      height: 52px;
       width: auto;
       display: block;
     }
     .logo-fallback {
-      font-size: 13px;
+      font-size: 11px;
       font-weight: 700;
-      letter-spacing: 2px;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--teal);
     }
@@ -93,48 +100,58 @@
     .card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 36px;
+      border-radius: var(--radius-lg);
+      padding: 38px 40px;
       margin-bottom: 14px;
     }
-    @media (max-width: 500px) { .card { padding: 24px 20px; } }
+    @media (max-width: 500px) { .card { padding: 26px 22px; } }
 
     /* ── TYPE ── */
     .eyebrow {
-      font-size: 10px; font-weight: 700; letter-spacing: 2px;
-      text-transform: uppercase; color: var(--teal); margin-bottom: 12px;
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 9px; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--teal); margin-bottom: 14px;
+    }
+    .eyebrow::before {
+      content: ''; display: inline-block; width: 18px; height: 2px;
+      background: var(--teal); border-radius: 1px; flex-shrink: 0;
     }
     .title {
-      font-size: clamp(20px, 3.8vw, 26px);
-      font-weight: 700; letter-spacing: -.2px; line-height: 1.25; margin-bottom: 10px;
+      font-size: clamp(22px, 4vw, 30px);
+      font-weight: 800; letter-spacing: -0.5px; line-height: 1.2; margin-bottom: 12px;
     }
     .body-text {
-      font-size: 15px; color: var(--text2); line-height: 1.8; margin-bottom: 22px;
+      font-size: 15px; color: var(--text2); line-height: 1.85; margin-bottom: 24px;
+      font-weight: 400;
     }
     .body-text strong { color: var(--text); font-weight: 600; }
-    .small-text { font-size: 13px; color: var(--text3); line-height: 1.6; }
+    .small-text { font-size: 12px; color: var(--text3); line-height: 1.6; font-weight: 500; }
 
     /* ── TIME PILL ── */
     .pill {
-      display: inline-flex; align-items: center; gap: 6px;
+      display: inline-flex; align-items: center; gap: 5px;
       border: 1px solid var(--border);
-      border-radius: 20px; padding: 4px 12px;
-      font-size: 11px; color: var(--text3);
-      margin-bottom: 20px; letter-spacing: .2px;
+      border-radius: 4px; padding: 4px 10px;
+      font-size: 10px; font-weight: 600; color: var(--text3);
+      margin-bottom: 22px; letter-spacing: 0.06em;
+      text-transform: uppercase;
     }
 
     /* ── STEP COUNTER ── */
     .step-counter {
       display: flex; align-items: center; gap: 12px; margin-bottom: 30px;
     }
-    .step-counter-label { font-size: 11px; color: var(--text3); font-weight: 500; white-space: nowrap; }
+    .step-counter-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--text3); white-space: nowrap;
+    }
     .step-counter-track {
-      flex: 1; height: 1px; background: var(--border); border-radius: 1px; overflow: hidden;
+      flex: 1; height: 2px; background: var(--border); border-radius: 2px; overflow: hidden;
     }
     .step-counter-fill {
       height: 100%;
       background: linear-gradient(90deg, var(--teal-dark), var(--teal));
-      transition: width .4s ease;
+      transition: width .45s cubic-bezier(.4,0,.2,1);
     }
 
     /* ── DIVIDER ── */
@@ -147,172 +164,305 @@
 
     /* ── NOTICE BOXES ── */
     .notice {
-      border-radius: 10px; padding: 16px 20px; margin-bottom: 20px;
+      border-radius: 8px; padding: 16px 18px 16px 20px;
+      margin-bottom: 20px; position: relative;
+      border: 1px solid transparent;
     }
-    .notice.warn   { background: var(--warn-bg);   border: 1px solid rgba(196,154,60,.18); }
-    .notice.info   { background: var(--teal-dim);  border: 1px solid rgba(83,205,189,.14); }
-    .notice.danger { background: var(--danger-bg); border: 1px solid rgba(201,95,95,.18); }
+    .notice::before {
+      content: ''; position: absolute; left: 0; top: 8px; bottom: 8px;
+      width: 3px; border-radius: 0 2px 2px 0;
+    }
+    .notice.warn   { background: var(--warn-bg);   border-color: rgba(196,154,60,.14); }
+    .notice.info   { background: var(--teal-dim);  border-color: rgba(83,205,189,.12); }
+    .notice.danger { background: var(--danger-bg); border-color: rgba(201,95,95,.14); }
+    .notice.warn::before   { background: var(--warn); }
+    .notice.info::before   { background: var(--teal); }
+    .notice.danger::before { background: var(--danger); }
     .notice-label {
-      font-size: 10px; font-weight: 700; letter-spacing: 2px;
-      text-transform: uppercase; margin-bottom: 8px;
+      font-size: 9px; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; margin-bottom: 7px;
     }
     .notice.warn   .notice-label { color: var(--warn); }
     .notice.info   .notice-label { color: var(--teal); }
     .notice.danger .notice-label { color: var(--danger); }
-    .notice p { font-size: 13px; color: var(--text2); line-height: 1.7; }
+    .notice p { font-size: 13px; color: var(--text2); line-height: 1.72; }
     .notice p strong { color: var(--text); font-weight: 600; }
 
     /* ── EMPHASIS ── */
     .em-eyebrow {
-      font-size: 10px; font-weight: 700; letter-spacing: 2px;
+      font-size: 9px; font-weight: 700; letter-spacing: 0.2em;
       text-transform: uppercase; color: var(--teal); display: block; margin-bottom: 8px;
     }
 
     /* ── BUTTONS ── */
     .btn {
       display: inline-flex; align-items: center; justify-content: center;
-      gap: 8px; padding: 13px 22px; border-radius: 9px;
-      font-size: 14px; font-weight: 600; cursor: pointer; border: none;
-      transition: all .2s ease; text-decoration: none;
-      letter-spacing: .1px; white-space: nowrap; outline: none;
+      gap: 8px; padding: 13px 24px; border-radius: 6px;
+      font-size: 14px; font-weight: 700; cursor: pointer; border: none;
+      transition: all .18s ease; text-decoration: none;
+      letter-spacing: 0.01em; white-space: nowrap; outline: none;
+      font-family: inherit;
     }
-    .btn-primary { background: var(--teal); color: #0a0a0a; }
-    .btn-primary:hover { background: #65d9ca; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(83,205,189,.18); }
-    .btn-primary:disabled { opacity: .28; cursor: not-allowed; transform: none; box-shadow: none; }
-    .btn-outline { background: transparent; color: var(--text2); border: 1px solid var(--border); }
-    .btn-outline:hover { border-color: rgba(255,255,255,.15); color: var(--text); }
-    .btn-ghost { background: transparent; color: var(--text3); border: none; font-size: 13px; padding: 10px 16px; }
+    .btn-primary {
+      background: var(--teal); color: #080909;
+    }
+    .btn-primary:hover {
+      background: #6bdece;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(83,205,189,.22);
+    }
+    .btn-primary:active { transform: translateY(0); }
+    .btn-primary:disabled { opacity: .25; cursor: not-allowed; transform: none; box-shadow: none; }
+    .btn-outline {
+      background: transparent; color: var(--text2);
+      border: 1px solid rgba(255,255,255,0.1);
+      font-weight: 500;
+    }
+    .btn-outline:hover { border-color: rgba(255,255,255,.18); color: var(--text); }
+    .btn-ghost {
+      background: transparent; color: var(--text3); border: none;
+      font-size: 13px; padding: 10px 14px; font-weight: 500;
+    }
     .btn-ghost:hover { color: var(--text2); }
-    .btn-danger { background: var(--danger); color: #fff; }
+    .btn-danger { background: var(--danger); color: #fff; border-radius: 6px; }
     .btn-danger:hover { background: #d97070; }
-    .btn-secondary { background: var(--surface2); color: var(--teal); border: 1px solid rgba(83,205,189,.2); }
-    .btn-secondary:hover { background: var(--teal-glow); border-color: rgba(83,205,189,.35); }
+    .btn-secondary {
+      background: var(--surface2); color: var(--teal);
+      border: 1px solid rgba(83,205,189,.2); font-weight: 600;
+    }
+    .btn-secondary:hover { background: var(--teal-glow); border-color: rgba(83,205,189,.38); }
     .btn-full { width: 100%; }
 
     /* ── NAV ROW ── */
     .nav-row {
       display: flex; align-items: center; justify-content: space-between; gap: 12px;
-      margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--border);
+      margin-top: 30px; padding-top: 24px; border-top: 1px solid var(--border);
     }
 
     /* ── HOME SCREEN ── */
-    .home-logo-wrap { text-align: center; margin-bottom: 48px; }
-    .home-logo { height: 96px; width: auto; }
+    .home-hero {
+      text-align: center;
+      padding: 70px 0 52px;
+      position: relative;
+    }
+    .home-hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%; transform: translateX(-50%);
+      width: 500px; height: 300px;
+      background: radial-gradient(ellipse at center top, rgba(83,205,189,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .home-logo { height: 80px; width: auto; margin: 0 auto 28px; display: block; position: relative; }
+    .home-label {
+      font-size: 9px; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--teal);
+      margin-bottom: 10px; display: block;
+    }
     .home-tagline {
-      font-size: 22px; font-weight: 700; letter-spacing: -.2px;
-      color: var(--text); margin-top: 22px; line-height: 1.2;
+      font-size: clamp(26px, 6vw, 36px); font-weight: 800;
+      letter-spacing: -0.6px; color: var(--text); line-height: 1.15;
     }
-    .home-tagline span {
-      display: block; font-size: 12px; font-weight: 500; letter-spacing: 2px;
-      text-transform: uppercase; color: var(--text3); margin-top: 6px;
+    .home-sub {
+      font-size: 14px; color: var(--text3); margin-top: 10px;
+      font-weight: 400; line-height: 1.6;
     }
-    .home-options { display: flex; flex-direction: column; gap: 10px; }
+    .home-options { display: flex; flex-direction: column; gap: 8px; }
+
+    /* Primary action card — distinct treatment */
     .home-card {
-      background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
-      padding: 20px 22px; cursor: pointer; transition: all .2s ease;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 18px 22px; cursor: pointer; transition: all .2s ease;
       display: flex; align-items: center; gap: 16px;
       text-decoration: none; color: inherit; text-align: left;
     }
-    .home-card:hover { border-color: var(--border-hi); background: var(--surface2); }
+    .home-card:hover { border-color: rgba(255,255,255,0.12); background: var(--surface2); }
+    .home-card.home-card-primary {
+      background: linear-gradient(135deg, rgba(83,205,189,0.08) 0%, rgba(83,205,189,0.03) 100%);
+      border-color: rgba(83,205,189,0.22);
+      padding: 22px 24px;
+    }
+    .home-card.home-card-primary:hover {
+      border-color: rgba(83,205,189,0.4);
+      background: linear-gradient(135deg, rgba(83,205,189,0.13) 0%, rgba(83,205,189,0.06) 100%);
+    }
     .home-card-icon {
-      width: 38px; height: 38px; border-radius: 9px;
+      width: 40px; height: 40px; border-radius: 9px;
       background: var(--teal-dim); border: 1px solid rgba(83,205,189,.12);
       display: flex; align-items: center; justify-content: center;
       flex-shrink: 0; color: var(--teal);
     }
+    .home-card-primary .home-card-icon {
+      width: 44px; height: 44px; background: rgba(83,205,189,0.12);
+      border-color: rgba(83,205,189,.25);
+    }
     .home-card-body { flex: 1; }
-    .home-card-body h3 { font-size: 15px; font-weight: 600; margin-bottom: 3px; }
+    .home-card-body h3 { font-size: 15px; font-weight: 700; margin-bottom: 3px; }
+    .home-card-primary .home-card-body h3 { font-size: 16px; }
     .home-card-body p { font-size: 12px; color: var(--text2); line-height: 1.5; }
-    .home-card-chevron { color: var(--text3); flex-shrink: 0; }
+    .home-card-chevron { color: var(--text3); flex-shrink: 0; transition: transform .2s ease; }
+    .home-card:hover .home-card-chevron { transform: translateX(2px); }
 
     /* ── MINISTRY GRID ── */
-    .ministry-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 7px; margin-bottom: 24px; }
+    .ministry-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 6px; margin-bottom: 24px; }
     @media (max-width: 460px) { .ministry-grid { grid-template-columns: 1fr; } }
     .min-opt {
-      background: var(--surface2); border: 1px solid var(--border); border-radius: 8px;
-      padding: 11px 14px; cursor: pointer; transition: all .16s ease;
-      font-size: 13px; font-weight: 500; color: var(--text2); text-align: left; line-height: 1.35;
+      background: var(--surface2); border: 1px solid var(--border); border-radius: 7px;
+      padding: 11px 13px; cursor: pointer; transition: all .15s ease;
+      font-size: 12.5px; font-weight: 500; color: var(--text2); text-align: left; line-height: 1.35;
+      font-family: inherit;
     }
-    .min-opt:hover { border-color: rgba(83,205,189,.22); color: var(--text); }
-    .min-opt.sel { background: var(--teal-glow); border-color: var(--teal); color: var(--teal); font-weight: 600; }
+    .min-opt:hover { border-color: rgba(83,205,189,.2); color: var(--text); background: var(--surface3); }
+    .min-opt.sel {
+      background: rgba(83,205,189,0.08); border-color: var(--teal);
+      color: var(--teal); font-weight: 700;
+    }
 
     /* ── YES/NO ── */
-    .yn-wrap { display: flex; gap: 9px; margin-bottom: 20px; }
+    .yn-wrap { display: flex; gap: 8px; margin-bottom: 20px; }
     .yn-btn {
       flex: 1; background: var(--surface2); border: 1px solid var(--border);
-      border-radius: 9px; padding: 14px 12px; cursor: pointer; font-size: 14px;
-      font-weight: 600; color: var(--text2); transition: all .16s ease; text-align: center;
+      border-radius: 7px; padding: 14px 12px; cursor: pointer; font-size: 14px;
+      font-weight: 700; color: var(--text2); transition: all .15s ease; text-align: center;
+      font-family: inherit;
     }
-    .yn-btn:hover { border-color: rgba(83,205,189,.2); color: var(--text); }
-    .yn-yes { background: var(--teal-glow); border-color: var(--teal); color: var(--teal); }
-    .yn-no  { background: var(--danger-bg); border-color: rgba(201,95,95,.3); color: var(--danger); }
+    .yn-btn:hover { border-color: rgba(83,205,189,.22); color: var(--text); background: var(--surface3); }
+    .yn-yes { background: rgba(83,205,189,0.08); border-color: var(--teal); color: var(--teal); }
+    .yn-no  { background: var(--danger-bg); border-color: rgba(201,95,95,.28); color: var(--danger); }
 
     /* ── TRACK INTRO ── */
     .track-card {
-      background: linear-gradient(145deg, #0d2420, #0f2e28);
-      border: 1px solid rgba(83,205,189,.14);
-      border-radius: 14px; padding: 44px 38px; text-align: center; margin-bottom: 14px;
+      background: linear-gradient(160deg, #0c211e 0%, #0a1c1a 60%, #080f0e 100%);
+      border: 1px solid rgba(83,205,189,.16);
+      border-radius: var(--radius-lg); padding: 52px 44px; text-align: center; margin-bottom: 14px;
       position: relative; overflow: hidden;
     }
     .track-card::before {
       content: '';
       position: absolute; top: 0; left: 0; right: 0; height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(83,205,189,.3), transparent);
+      background: linear-gradient(90deg, transparent, rgba(83,205,189,.35), transparent);
+    }
+    .track-card::after {
+      content: '';
+      position: absolute; bottom: -60px; left: 50%; transform: translateX(-50%);
+      width: 300px; height: 200px;
+      background: radial-gradient(ellipse, rgba(83,205,189,0.06) 0%, transparent 70%);
+      pointer-events: none;
     }
     .track-logo {
-      height: 44px; width: auto; margin: 0 auto 28px; display: block;
-      opacity: .9;
+      height: 46px; width: auto; margin: 0 auto 32px; display: block;
+      opacity: .92; position: relative; z-index: 1;
     }
     .track-card h2 {
-      font-size: clamp(17px,3.5vw,22px); font-weight: 700; color: #fff;
-      margin-bottom: 14px; line-height: 1.3;
-      letter-spacing: -.1px;
+      font-size: clamp(18px,3.5vw,24px); font-weight: 800; color: #fff;
+      margin-bottom: 14px; line-height: 1.2;
+      letter-spacing: -.3px; position: relative; z-index: 1;
     }
     .track-card h2 span {
-      display: block; font-size: 10px; font-weight: 700; letter-spacing: 2.5px;
-      text-transform: uppercase; color: var(--teal); margin-bottom: 8px;
+      display: block; font-size: 9px; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--teal); margin-bottom: 10px;
     }
-    .track-card p { font-size: 14px; color: rgba(255,255,255,.6); line-height: 1.75; margin-bottom: 8px; }
+    .track-card p { font-size: 14px; color: rgba(255,255,255,.55); line-height: 1.8; margin-bottom: 8px; position: relative; z-index: 1; }
     .track-em { font-size: 12px; font-weight: 700; color: var(--teal); display: block; margin-bottom: 10px; letter-spacing: .3px; }
-    .track-time { font-size: 12px; color: rgba(255,255,255,.35); }
+    .track-time { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,.28); }
 
-    /* ── ADOBE SIGN ── */
-    .sign-wrap {
-      width: 100%; height: 500px; border: 1px solid var(--border);
-      border-radius: 10px; overflow: hidden; background: var(--surface2); margin-bottom: 14px;
+    /* ── ADOBE SIGN MODAL ── */
+    .sign-modal-overlay {
+      display: none;
+      position: fixed; inset: 0; z-index: 9000;
+      background: rgba(0,0,0,0.82);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      align-items: center; justify-content: center;
     }
-    .sign-wrap iframe { width: 100%; height: 100%; border: none; }
+    .sign-modal-overlay.open { display: flex; }
+    .sign-modal {
+      position: relative;
+      width: min(96vw, 860px);
+      height: min(92vh, 760px);
+      background: #fff;
+      border-radius: 14px;
+      overflow: hidden;
+      display: flex; flex-direction: column;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.6);
+      animation: modalIn .25s cubic-bezier(.4,0,.2,1);
+    }
+    @keyframes modalIn {
+      from { opacity: 0; transform: scale(.96) translateY(10px); }
+      to   { opacity: 1; transform: scale(1)  translateY(0); }
+    }
+    .sign-modal-bar {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 18px;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-shrink: 0;
+    }
+    .sign-modal-title {
+      font-size: 13px; font-weight: 600; color: var(--text); letter-spacing: .2px;
+    }
+    .sign-modal-close {
+      background: none; border: none; cursor: pointer;
+      color: var(--text2); padding: 4px; border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      transition: color .15s, background .15s;
+    }
+    .sign-modal-close:hover { color: var(--text); background: var(--surface2); }
+    .sign-modal iframe {
+      flex: 1; width: 100%; border: none;
+    }
+    /* ── OPEN SIGN BUTTON ── */
+    .sign-btn {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      width: 100%; padding: 17px 22px; margin-bottom: 14px;
+      background: rgba(83,205,189,0.06); border: 1px solid rgba(83,205,189,0.28);
+      border-radius: 8px; color: var(--teal); font-size: 14px; font-weight: 700;
+      cursor: pointer; transition: background .18s, border-color .18s, transform .15s;
+      letter-spacing: 0.01em; font-family: inherit;
+    }
+    .sign-btn:hover {
+      background: rgba(83,205,189,0.11); border-color: rgba(83,205,189,0.48);
+      transform: translateY(-1px);
+    }
+    .sign-btn:active { transform: translateY(0); }
+    .sign-btn svg { flex-shrink: 0; }
     .how-to {
-      background: var(--teal-dim); border: 1px solid rgba(83,205,189,.12);
-      border-radius: 9px; padding: 16px 18px; margin-bottom: 18px;
+      background: rgba(83,205,189,0.04); border: 1px solid rgba(83,205,189,.1);
+      border-radius: 8px; padding: 16px 18px; margin-bottom: 18px;
+      position: relative;
+    }
+    .how-to::before {
+      content: ''; position: absolute; left: 0; top: 8px; bottom: 8px;
+      width: 3px; background: var(--teal); border-radius: 0 2px 2px 0; opacity: .5;
     }
     .how-to .how-label {
-      font-size: 10px; font-weight: 700; letter-spacing: 2px;
+      font-size: 9px; font-weight: 700; letter-spacing: 0.18em;
       text-transform: uppercase; color: var(--teal); margin-bottom: 10px;
     }
     .how-to ol { padding-left: 18px; font-size: 13px; color: var(--text2); line-height: 1.9; }
-    .how-to ol li + li { margin-top: 3px; }
+    .how-to ol li + li { margin-top: 4px; }
 
     /* ── PC FORM BLOCK ── */
     .pc-block {
-      background: var(--surface2); border: 1px solid var(--border); border-radius: 10px;
-      padding: 26px 22px; display: flex; flex-direction: column; align-items: center;
+      background: var(--surface2); border: 1px solid var(--border); border-radius: 8px;
+      padding: 28px 22px; display: flex; flex-direction: column; align-items: center;
       gap: 12px; text-align: center; margin-bottom: 14px;
     }
     .pc-block-icon {
-      width: 40px; height: 40px; border-radius: 10px;
-      background: var(--teal-dim); border: 1px solid rgba(83,205,189,.12);
+      width: 42px; height: 42px; border-radius: 9px;
+      background: var(--teal-dim); border: 1px solid rgba(83,205,189,.14);
       display: flex; align-items: center; justify-content: center; color: var(--teal);
     }
-    .pc-block p { font-size: 13px; color: var(--text2); line-height: 1.65; max-width: 360px; }
+    .pc-block p { font-size: 13px; color: var(--text2); line-height: 1.7; max-width: 360px; }
 
     /* ── TRAINING ── */
     .training-box {
       background: var(--surface2); border: 1px solid var(--border);
-      border-radius: 10px; padding: 20px 22px; margin-bottom: 16px;
+      border-radius: 8px; padding: 20px 22px; margin-bottom: 16px;
     }
     .training-box .t-label {
-      font-size: 10px; font-weight: 700; letter-spacing: 2px;
+      font-size: 9px; font-weight: 700; letter-spacing: 0.18em;
       text-transform: uppercase; color: var(--teal); margin-bottom: 12px;
     }
     .training-box ol { padding-left: 20px; font-size: 13px; color: var(--text2); line-height: 1.9; }
@@ -333,7 +483,7 @@
     /* ── ADDRESS CARD ── */
     .addr-card {
       background: var(--surface2); border: 1px solid var(--border);
-      border-radius: 10px; padding: 20px 22px; display: flex; gap: 16px; margin-bottom: 14px;
+      border-radius: 8px; padding: 20px 22px; display: flex; gap: 16px; margin-bottom: 14px;
     }
     .addr-icon { color: var(--teal); flex-shrink: 0; margin-top: 2px; opacity: .7; }
     .addr-info h4 { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
@@ -343,41 +493,48 @@
 
     /* ── FAIL ── */
     .fail-card {
-      background: var(--danger-bg); border: 1px solid rgba(201,95,95,.16);
-      border-radius: 14px; padding: 48px 36px; text-align: center;
+      background: var(--danger-bg); border: 1px solid rgba(201,95,95,.14);
+      border-radius: var(--radius-lg); padding: 52px 40px; text-align: center;
     }
     .fail-icon {
-      width: 56px; height: 56px; border-radius: 50%;
-      background: rgba(201,95,95,.1); border: 1px solid rgba(201,95,95,.25);
+      width: 60px; height: 60px; border-radius: 50%;
+      background: rgba(201,95,95,.1); border: 1px solid rgba(201,95,95,.22);
       display: flex; align-items: center; justify-content: center;
-      color: var(--danger); margin: 0 auto 20px;
+      color: var(--danger); margin: 0 auto 22px;
     }
-    .fail-card h2 { font-size: 20px; font-weight: 700; margin-bottom: 10px; }
-    .fail-card p { font-size: 14px; color: var(--text2); line-height: 1.75; margin-bottom: 26px; max-width: 420px; margin-left: auto; margin-right: auto; }
+    .fail-card h2 { font-size: clamp(18px,3.5vw,22px); font-weight: 800; margin-bottom: 10px; letter-spacing: -.2px; }
+    .fail-card p { font-size: 14px; color: var(--text2); line-height: 1.8; margin-bottom: 28px; max-width: 420px; margin-left: auto; margin-right: auto; }
 
     /* ── COMPLETE ── */
     .complete-card {
-      background: linear-gradient(145deg, #0d2420, #0f2e28);
-      border: 1px solid rgba(83,205,189,.14);
-      border-radius: 14px; padding: 60px 36px; text-align: center;
+      background: linear-gradient(160deg, #0c211e 0%, #0a1c1a 60%, #080f0e 100%);
+      border: 1px solid rgba(83,205,189,.16);
+      border-radius: var(--radius-lg); padding: 64px 44px; text-align: center;
       position: relative; overflow: hidden;
     }
     .complete-card::before {
       content: '';
       position: absolute; top: 0; left: 0; right: 0; height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(83,205,189,.35), transparent);
+      background: linear-gradient(90deg, transparent, rgba(83,205,189,.4), transparent);
+    }
+    .complete-card::after {
+      content: '';
+      position: absolute; top: 30px; left: 50%; transform: translateX(-50%);
+      width: 400px; height: 250px;
+      background: radial-gradient(ellipse, rgba(83,205,189,0.07) 0%, transparent 65%);
+      pointer-events: none;
     }
     .complete-icon {
-      width: 64px; height: 64px; border-radius: 50%;
+      width: 68px; height: 68px; border-radius: 50%;
       background: rgba(83,205,189,.1); border: 1px solid rgba(83,205,189,.3);
       display: flex; align-items: center; justify-content: center;
-      color: var(--teal); margin: 0 auto 22px;
-      animation: cpop .5s cubic-bezier(.34,1.56,.64,1);
+      color: var(--teal); margin: 0 auto 24px; position: relative; z-index: 1;
+      animation: cpop .55s cubic-bezier(.34,1.56,.64,1);
     }
-    .complete-logo { height: 36px; width: auto; margin: 0 auto 26px; display: block; opacity: .6; }
+    .complete-logo { height: 38px; width: auto; margin: 0 auto 28px; display: block; opacity: .55; position: relative; z-index: 1; }
     @keyframes cpop { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-    .complete-card h2 { font-size: 24px; font-weight: 700; color: #fff; margin-bottom: 10px; }
-    .complete-card p { font-size: 14px; color: rgba(255,255,255,.55); line-height: 1.8; }
+    .complete-card h2 { font-size: clamp(22px,4vw,28px); font-weight: 800; color: #fff; margin-bottom: 12px; letter-spacing: -.3px; position: relative; z-index: 1; }
+    .complete-card p { font-size: 14px; color: rgba(255,255,255,.5); line-height: 1.85; position: relative; z-index: 1; }
 
     /* ── SCROLLBAR ── */
     ::-webkit-scrollbar { width: 4px; }
@@ -389,6 +546,19 @@
 
 <div id="prog-wrap"><div id="prog-fill"></div></div>
 <div class="page" id="app"></div>
+
+<!-- Adobe Sign Modal -->
+<div class="sign-modal-overlay" id="sign-modal-overlay" onclick="handleSignOverlayClick(event)">
+  <div class="sign-modal" id="sign-modal">
+    <div class="sign-modal-bar">
+      <span class="sign-modal-title" id="sign-modal-title">Sign Document</span>
+      <button class="sign-modal-close" onclick="closeSignModal()" aria-label="Close">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <iframe id="sign-modal-iframe" src="" title="Adobe Sign Document"></iframe>
+  </div>
+</div>
 
 <script>
 // ── SVG ICONS ────────────────────────────────────────────────
@@ -492,6 +662,24 @@ function reset() {
   document.getElementById('prog-fill').style.width = '0%';
 }
 
+// ── ADOBE SIGN MODAL ─────────────────────────────────────────
+function openSignModal(url, title) {
+  const overlay = document.getElementById('sign-modal-overlay');
+  document.getElementById('sign-modal-title').textContent = title;
+  document.getElementById('sign-modal-iframe').src = url;
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeSignModal() {
+  const overlay = document.getElementById('sign-modal-overlay');
+  overlay.classList.remove('open');
+  document.getElementById('sign-modal-iframe').src = '';
+  document.body.style.overflow = '';
+}
+function handleSignOverlayClick(e) {
+  if (e.target === document.getElementById('sign-modal-overlay')) closeSignModal();
+}
+
 // ── RENDER ROUTER ────────────────────────────────────────────
 function render() {
   const app = document.getElementById('app');
@@ -525,13 +713,15 @@ function render() {
 
 function renderHome() {
   return `
-    <div class="home-logo-wrap">
+    <div class="home-hero">
       <img src="logo-white.png" class="home-logo" alt="LCC Redding"
         onerror="this.outerHTML='<span class=\\'logo-fallback\\'>LCC Redding</span>'">
-      <p class="home-tagline">LCC Redding<span>Volunteer Portal</span></p>
+      <span class="home-label">Volunteer Portal</span>
+      <h1 class="home-tagline">LCC Redding</h1>
+      <p class="home-sub">Serving our community, together.</p>
     </div>
     <div class="home-options">
-      <button class="home-card" onclick="go('opening')">
+      <button class="home-card home-card-primary" onclick="go('opening')">
         <div class="home-card-icon">${I.people}</div>
         <div class="home-card-body">
           <h3>Become a Volunteer</h3>
@@ -725,19 +915,11 @@ function item3(pos, total) {
       <h2 class="title">${title}</h2>
       <span class="pill">${I.clock} &nbsp;5 minutes</span>
       <p class="body-text">${body}</p>
-      <div class="how-to">
-        <div class="how-label">How to Complete This Adobe Sign Form</div>
-        <ol>
-          <li>Enter your full name and email address when prompted.</li>
-          <li>Click the yellow <strong>Sign</strong> field to place your signature.</li>
-          <li>Choose to type, draw, or upload your signature, then click <strong>Apply</strong>.</li>
-          <li>Click <strong>Click to Sign</strong> to finalize.</li>
-          <li>You'll receive a confirmation email when it's complete.</li>
-        </ol>
-      </div>
-      <div class="sign-wrap">
-        <iframe src="https://na4.documents.adobe.com/public/esignWidget?wid=CBFCIBAA3AAABLblqZhB6wEkme_y2CKHvet7fpZiO1O_bWwB7fKIISVILMw1tG64mpqFHrQxAoXON_jHBI2E*" title="Statement of Faith" allowfullscreen></iframe>
-      </div>
+      ${adobeHowTo()}
+      <button class="sign-btn" onclick="openSignModal('https://na4.documents.adobe.com/public/esignWidget?wid=CBFCIBAA3AAABLblqZhB6wEkme_y2CKHvet7fpZiO1O_bWwB7fKIISVILMw1tG64mpqFHrQxAoXON_jHBI2E*', 'Statement of Faith')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        Open Statement of Faith to Sign
+      </button>
       <p class="small-text" style="text-align:center;">Once you've signed, click Continue below.</p>
       ${navRow('nextItem()', "I've Signed — Continue", false)}
     </div>`;
@@ -843,9 +1025,10 @@ function item6(pos, total) {
       <span class="pill">${I.clock} &nbsp;5 minutes</span>
       <p class="body-text">By signing this form, you're confirming that you understand your responsibilities under California law and are prepared to take appropriate action if a concern arises. <strong>This agreement must be renewed every two years.</strong></p>
       ${adobeHowTo()}
-      <div class="sign-wrap">
-        <iframe src="https://na4.documents.adobe.com/public/esignWidget?wid=CBFCIBAA3AAABLblqZhDXQs0KKntvqMbul26nmUp_LTVztyjUYB1yOksG5g0mNlZQzqVx6rgvlDWlymc8BFQ*" title="Mandated Reporter Agreement" allowfullscreen></iframe>
-      </div>
+      <button class="sign-btn" onclick="openSignModal('https://na4.documents.adobe.com/public/esignWidget?wid=CBFCIBAA3AAABLblqZhDXQs0KKntvqMbul26nmUp_LTVztyjUYB1yOksG5g0mNlZQzqVx6rgvlDWlymc8BFQ*', 'California Mandated Reporter Agreement')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        Open Mandated Reporter Agreement to Sign
+      </button>
       <p class="small-text" style="text-align:center;">Once you've signed, click Continue below.</p>
       ${navRow('nextItem()', "I've Signed — Continue", false)}
     </div>`;
@@ -860,9 +1043,10 @@ function item7(pos, total) {
       <span class="pill">${I.clock} &nbsp;5 minutes</span>
       <p class="body-text">This waiver legally authorizes LCC Redding to receive and review your state-processed background check results, as required under AB 506. <strong>This form must be re-signed each year.</strong></p>
       ${adobeHowTo()}
-      <div class="sign-wrap">
-        <iframe src="https://na4.documents.adobe.com/public/esignWidget?wid=CBFCIBAA3AAABLblqZhDzo89bYXg-bkmwG7ggU5IqjULiTBh1kj83x6Uze0Ativ2m_mF_9zEuJ8ozYtHWRRM*" title="CalVECHS Waiver" allowfullscreen></iframe>
-      </div>
+      <button class="sign-btn" onclick="openSignModal('https://na4.documents.adobe.com/public/esignWidget?wid=CBFCIBAA3AAABLblqZhDzo89bYXg-bkmwG7ggU5IqjULiTBh1kj83x6Uze0Ativ2m_mF_9zEuJ8ozYtHWRRM*', 'CalVECHS Waiver Agreement')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        Open CalVECHS Waiver to Sign
+      </button>
       <p class="small-text" style="text-align:center;">Once you've signed, click Continue below.</p>
       ${navRow('nextItem()', "I've Signed — Continue", false)}
     </div>`;
@@ -1003,7 +1187,7 @@ function renderFarewell() {
     <div class="card" style="text-align:center;padding:48px 36px;">
       <img src="logo-white.png" style="height:48px;width:auto;margin:0 auto 28px;display:block;opacity:.85;"
         alt="LCC Redding" onerror="this.style.display='none'">
-      <div class="eyebrow" style="justify-content:center;display:block;">Thank You</div>
+      <div style="font-size:9px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--teal);margin-bottom:14px;">Thank You</div>
       <h2 class="title" style="font-size:clamp(20px,4vw,26px);margin-bottom:20px;">
         We're sad to see you go,<br>but deeply grateful for your service.
       </h2>
@@ -1096,6 +1280,9 @@ function setI9(v)     { S.i9ans  = v; if (v==='yes') nextItem(); else render(); 
 function setI10(v)    { S.i10ans = v; if (v==='yes') nextItem(); else render(); }
 
 // ── INIT ─────────────────────────────────────────────────────
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeSignModal();
+});
 render();
 </script>
 </body>
